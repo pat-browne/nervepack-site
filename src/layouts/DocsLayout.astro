@@ -1,0 +1,115 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Emblem from '../components/Emblem.astro';
+
+interface NavItem { slug: string; title: string; }
+interface Props {
+  title: string;
+  nav: NavItem[];
+  current?: string;
+  sourceUrl?: string;
+}
+const { title, nav, current, sourceUrl } = Astro.props;
+const REPO = 'https://github.com/pat-browne/nervepack';
+---
+<BaseLayout title={`${title} · nervepack docs`}>
+  <header class="site-head">
+    <div class="container head-inner">
+      <a class="brand" href="/" aria-label="nervepack home">
+        <Emblem size={32} animate={false} />
+        <span class="brand-name">nervepack</span>
+      </a>
+      <nav class="head-nav">
+        <a href="/docs/" aria-current="page">Docs</a>
+        <a href={REPO} class="btn btn-ghost btn-sm">GitHub ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container docs-shell">
+    <aside class="docs-nav" aria-label="Docs navigation">
+      <p class="eyebrow">Documentation</p>
+      <ul>
+        <li><a href="/docs/" class:list={[{ active: current === 'index' }]}>Overview</a></li>
+        {nav.map((n) => (
+          <li><a href={`/docs/${n.slug}/`} class:list={[{ active: current === n.slug }]}>{n.title}</a></li>
+        ))}
+      </ul>
+      <p class="docs-note">Synced from the <a href={REPO}>nervepack</a> repo on every build.</p>
+    </aside>
+
+    <article class="docs-body">
+      <h1>{title}</h1>
+      {sourceUrl && (
+        <p class="docs-source">
+          Auto-generated from <a href={sourceUrl}><code>{sourceUrl.split('/blob/main/')[1]}</code></a> — always current.
+        </p>
+      )}
+      <div class="prose"><slot /></div>
+    </article>
+  </div>
+
+  <footer class="site-foot">
+    <div class="container foot-inner">
+      <span class="foot-brand"><Emblem size={26} animate={false} /> nervepack</span>
+      <nav class="foot-links"><a href={REPO}>GitHub</a><a href="/docs/">Docs</a><a href={`${REPO}/blob/main/LICENSE`}>Apache-2.0</a></nav>
+      <p class="foot-tag">A modpack for AI cognition.</p>
+    </div>
+  </footer>
+</BaseLayout>
+
+<style>
+  .site-head { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border-soft); }
+  .head-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .brand { display: inline-flex; align-items: center; gap: 0.55rem; color: var(--text); }
+  .brand:hover { text-decoration: none; }
+  .brand-name { font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; }
+  .head-nav { display: flex; align-items: center; gap: 1.3rem; }
+  .head-nav > a:not(.btn) { color: var(--text); font-weight: 600; font-size: 0.95rem; }
+  .btn-sm { padding: 0.42em 0.85em; font-size: 0.9rem; }
+
+  .docs-shell { display: grid; grid-template-columns: 230px 1fr; gap: clamp(28px, 5vw, 60px); padding-block: clamp(36px, 6vw, 64px); align-items: start; }
+  .docs-nav { position: sticky; top: 88px; }
+  .docs-nav ul { list-style: none; margin: 0.4rem 0 0; padding: 0; display: grid; gap: 0.15rem; }
+  .docs-nav a { display: block; padding: 0.4rem 0.7rem; border-radius: var(--radius-sm); color: var(--text-secondary); font-weight: 600; font-size: 0.95rem; }
+  .docs-nav a:hover { background: var(--surface-alt); color: var(--text); text-decoration: none; }
+  .docs-nav a.active { background: var(--surface); color: var(--text); box-shadow: inset 2px 0 0 var(--np-amber); }
+  .docs-note { margin-top: 1.4rem; font-size: 0.82rem; color: var(--text-tertiary); line-height: 1.5; }
+
+  .docs-body { min-width: 0; }
+  .docs-source { margin: -0.2rem 0 1.6rem; font-size: 0.88rem; color: var(--text-tertiary); }
+  .docs-source code { color: var(--text-secondary); }
+
+  .site-foot { border-top: 1px solid var(--border); padding-block: 2.2rem; margin-top: 2rem; }
+  .foot-inner { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2rem; }
+  .foot-brand { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--text); font-family: var(--font-display); font-weight: 700; }
+  .foot-links { display: flex; gap: 1.3rem; }
+  .foot-links a { color: var(--text-secondary); font-weight: 600; font-size: 0.95rem; }
+  .foot-tag { margin: 0 0 0 auto; color: var(--text-tertiary); font-size: 0.95rem; }
+
+  @media (max-width: 800px) {
+    .docs-shell { grid-template-columns: 1fr; }
+    .docs-nav { position: static; }
+    .docs-nav ul { grid-auto-flow: column; grid-auto-columns: max-content; overflow-x: auto; }
+    .docs-note { display: none; }
+    .foot-tag { margin-left: 0; width: 100%; }
+  }
+</style>
+
+<style is:global>
+  /* Prose styling for rendered markdown (global so it reaches <slot/> content) */
+  .prose { max-width: 72ch; }
+  .prose h2 { font-size: 1.6rem; margin-top: 2.2rem; padding-bottom: 0.3rem; border-bottom: 1px solid var(--border); }
+  .prose h3 { font-size: 1.2rem; margin-top: 1.6rem; }
+  .prose p, .prose li { color: var(--text-secondary); }
+  .prose strong { color: var(--text); }
+  .prose a { color: var(--np-amber-deep); }
+  .prose code { background: var(--surface-alt); border: 1px solid var(--border); padding: 0.1em 0.4em; border-radius: 5px; font-size: 0.88em; color: var(--text); }
+  .prose pre { background: var(--ink); color: #cfe0ee; padding: 1rem 1.2rem; border-radius: var(--radius-md); overflow-x: auto; }
+  .prose pre code { background: none; border: none; padding: 0; color: inherit; }
+  .prose blockquote { margin: 1.2rem 0; padding: 0.4rem 1.1rem; border-left: 3px solid var(--np-amber); color: var(--text-secondary); background: var(--surface-alt); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+  .prose table { width: 100%; border-collapse: collapse; margin: 1.2rem 0; font-size: 0.92rem; display: block; overflow-x: auto; }
+  .prose th, .prose td { border: 1px solid var(--border); padding: 0.5rem 0.7rem; text-align: left; }
+  .prose th { background: var(--surface-alt); color: var(--text); font-family: var(--font-display); }
+  .prose img { max-width: 100%; height: auto; }
+</style>

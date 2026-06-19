@@ -25,8 +25,26 @@ warm-light house style.
   (`np-core/kb/env/flow`, varied emphasis) → How it works (lifecycle injection +
   knowledge-layer authority stack, on the charcoal band) → Get started
   (install + "works with Claude Code and any agentic host") → Footer.
-- **Docs (`/docs`):** v1 = Getting Started, Concepts, Architecture overview — each
-  its own page, linking to the GitHub repo for depth.
+- **Docs (`/docs`):** generated from nervepack's canonical markdown, never
+  hand-copied — Getting Started, Features, Architecture.
+
+## Docs integration — always up to date
+
+The docs are **not** authored here; they are synced from the nervepack repo so they
+can't drift from the code:
+
+- `scripts/sync-docs.mjs` reads the canonical docs (`docs/GETTING-STARTED.md`,
+  `docs/FEATURES.md`, `docs/ARCHITECTURE.md`) from `NERVEPACK_DOCS_SRC` (a nervepack
+  checkout; default `~/Code/nervepack` for local dev) and writes them into
+  `src/content/docs/` (an Astro content collection). It strips the leading H1, maps
+  cross-doc links to site routes, and renders `[[wikilinks]]` as inline code.
+- Runs on `predev` + `prebuild`, so every `npm run build`/`dev` re-pulls. The
+  generated files are **gitignored** — they can never go stale in the repo.
+- Production freshness: `.github/workflows/deploy.yml` checks out `pat-browne/nervepack`
+  and rebuilds on push, on a daily schedule, and on a `repository_dispatch`
+  (`nervepack-docs-updated`). To make nervepack trigger it instantly, add a tiny
+  dispatch workflow on the nervepack side (push → `repository_dispatch` to this repo,
+  needs a PAT secret) — deploy-time step.
 
 ## Tech & deploy
 

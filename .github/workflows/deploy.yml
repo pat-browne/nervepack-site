@@ -1,0 +1,60 @@
+name: Deploy to GitHub Pages
+
+# "Always up to date" docs: every deploy re-syncs the canonical docs from the
+# nervepack repo (scripts/sync-docs.mjs, run by prebuild). Rebuilds fire on:
+#   - push to this repo's main (site changes)
+#   - repository_dispatch from nervepack on its push (near-instant docs refresh;
+#     requires a small dispatch workflow + PAT on the nervepack side — see DESIGN.md)
+#   - a daily schedule (safety net if a dispatch is ever missed)
+#   - manual run
+on:
+  push:
+    branches: [main]
+  repository_dispatch:
+    types: [nervepack-docs-updated]
+  schedule:
+    - cron: '17 7 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout site
+        uses: actions/checkout@v4
+      - name: Checkout nervepack (docs source)
+        uses: actions/checkout@v4
+        with:
+          repository: pat-browne/nervepack
+          path: .nervepack-src
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Build (syncs docs from .nervepack-src via prebuild)
+        run: npm run build
+        env:
+          NERVEPACK_DOCS_SRC: ${{ github.workspace }}/.nervepack-src
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

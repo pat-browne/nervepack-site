@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import DocsLayout from '../../layouts/DocsLayout.astro';
+
+const docs = (await getCollection('docs')).sort((a, b) => a.data.order - b.data.order);
+const nav = docs.map((d) => ({ slug: d.id, title: d.data.title }));
+const blurbs: Record<string, string> = {
+  'getting-started': 'Install the engine, run the onboard for your host, and verify.',
+  'features': 'Every feature — what it does, how it is wired, and a worked example.',
+  'architecture': 'The high-level map: feature catalog, runtime wiring, and design invariants.',
+};
+---
+<DocsLayout title="Documentation" nav={nav} current="index">
+  <p class="lead">
+    Everything here is generated straight from the
+    <a href="https://github.com/pat-browne/nervepack">nervepack</a> repository on every
+    build, so the docs you read are always in step with the code.
+  </p>
+  <div class="doc-cards">
+    {docs.map((d) => (
+      <a class="doc-card" href={`/docs/${d.id}/`}>
+        <h3>{d.data.title}</h3>
+        <p>{blurbs[d.id] ?? ''}</p>
+        <span class="go">Read →</span>
+      </a>
+    ))}
+  </div>
+</DocsLayout>
+
+<style>
+  .lead { font-size: 1.15rem; color: var(--text-secondary); max-width: 60ch; }
+  .doc-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1rem; margin-top: 1.8rem; }
+  .doc-card { display: block; padding: 1.3rem 1.4rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); transition: transform 0.12s ease, border-color 0.12s ease; }
+  .doc-card:hover { transform: translateY(-2px); border-color: var(--np-amber); text-decoration: none; }
+  .doc-card h3 { margin: 0 0 0.4rem; }
+  .doc-card p { margin: 0 0 0.9rem; color: var(--text-secondary); font-size: 0.95rem; }
+  .doc-card .go { font-family: var(--font-display); font-weight: 600; color: var(--np-amber-deep); }
+  @media (prefers-reduced-motion: reduce) { .doc-card:hover { transform: none; } }
+</style>
