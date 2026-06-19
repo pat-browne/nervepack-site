@@ -1,0 +1,81 @@
+---
+// The nervepack harness emblem, inline so structure inherits currentColor and the
+// amber nodes can animate. Geometry matches pat-browne/nervepack brand/assets/logo-emblem.svg
+// (approved asymmetric branch pattern). Gradient/filter ids are instance-scoped.
+interface Props { size?: number; animate?: boolean; class?: string; }
+const { size = 200, animate = true, class: cls = '' } = Astro.props;
+const uid = 'e' + Math.random().toString(36).slice(2, 8);
+---
+<svg
+  class:list={['emblem', { animate }, cls]}
+  width={size} height={size} viewBox="0 0 200 200"
+  role="img" aria-label="nervepack emblem"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <defs>
+    <radialGradient id={`${uid}-node`} cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffd56b" />
+      <stop offset="55%" stop-color="#f2a91b" />
+      <stop offset="100%" stop-color="#e09405" />
+    </radialGradient>
+    <filter id={`${uid}-glow`} x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="2.4" result="b" />
+      <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+    </filter>
+  </defs>
+
+  <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="100" cy="100" r="86" stroke-width="5" />
+    <line x1="100" y1="14" x2="100" y2="186" stroke-width="4" />
+    <line x1="72" y1="56" x2="62" y2="56" />
+    <line x1="122" y1="56" x2="138" y2="56" /><line x1="138" y1="56" x2="150" y2="47" /><line x1="138" y1="56" x2="150" y2="65" />
+    <line x1="72" y1="90" x2="62" y2="90" />
+    <line x1="140" y1="90" x2="150" y2="81" /><line x1="140" y1="90" x2="150" y2="99" />
+    <line x1="78" y1="124" x2="62" y2="124" /><line x1="62" y1="124" x2="50" y2="115" /><line x1="62" y1="124" x2="50" y2="133" />
+    <line x1="122" y1="124" x2="138" y2="124" /><line x1="138" y1="124" x2="150" y2="115" /><line x1="138" y1="124" x2="150" y2="133" />
+    <line x1="78" y1="158" x2="58" y2="158" />
+  </g>
+
+  <g fill="currentColor">
+    <rect x="78" y="43" width="44" height="26" rx="9" />
+    <rect x="78" y="77" width="44" height="26" rx="9" />
+    <rect x="78" y="111" width="44" height="26" rx="9" />
+    <rect x="78" y="145" width="44" height="26" rx="9" />
+  </g>
+
+  <g class="nodes" filter={`url(#${uid}-glow)`} fill={`url(#${uid}-node)`}>
+    <circle cx="100" cy="56" r="5" />
+    <circle cx="100" cy="90" r="5" />
+    <circle cx="100" cy="124" r="5" />
+    <circle cx="100" cy="158" r="5" />
+    <circle cx="100" cy="14" r="5.5" stroke="currentColor" stroke-width="2.5" />
+    <circle cx="100" cy="186" r="5.5" stroke="currentColor" stroke-width="2.5" />
+    <g stroke="currentColor" stroke-width="1.4">
+      <circle cx="57" cy="56" r="3.6" /><circle cx="151" cy="46" r="3.6" /><circle cx="151" cy="66" r="3.6" />
+      <circle cx="57" cy="90" r="3.6" /><circle cx="151" cy="80" r="3.6" /><circle cx="151" cy="100" r="3.6" />
+      <circle cx="48" cy="114" r="3.6" /><circle cx="48" cy="134" r="3.6" /><circle cx="151" cy="114" r="3.6" /><circle cx="151" cy="134" r="3.6" />
+      <circle cx="53" cy="158" r="3.6" />
+    </g>
+  </g>
+</svg>
+
+<style>
+  .emblem { display: block; }
+  .emblem .nodes circle { transform-box: fill-box; transform-origin: center; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .emblem.animate .nodes circle { opacity: 0; animation: np-node-in 0.32s ease-out forwards; }
+    /* staggered glow-in, capped under 800ms total */
+    .emblem.animate .nodes > circle:nth-of-type(1) { animation-delay: 0.05s; }
+    .emblem.animate .nodes > circle:nth-of-type(2) { animation-delay: 0.12s; }
+    .emblem.animate .nodes > circle:nth-of-type(3) { animation-delay: 0.19s; }
+    .emblem.animate .nodes > circle:nth-of-type(4) { animation-delay: 0.26s; }
+    .emblem.animate .nodes > circle:nth-of-type(5) { animation-delay: 0.02s; }
+    .emblem.animate .nodes > circle:nth-of-type(6) { animation-delay: 0.40s; }
+    .emblem.animate .nodes > g circle { animation-delay: 0.34s; }
+  }
+  @keyframes np-node-in {
+    from { opacity: 0; transform: scale(0.4); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+</style>

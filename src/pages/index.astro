@@ -1,0 +1,221 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Emblem from '../components/Emblem.astro';
+
+const REPO = 'https://github.com/pat-browne/nervepack';
+
+const tiers = [
+  { key: 'np-core', label: 'core', title: 'Cognition machinery', desc: 'Capture, recall, sync, contribute, toggle — the engine that carries context between sessions and machines.' },
+  { key: 'np-kb',   label: 'kb',   title: 'Knowledge base', desc: 'Domain how-to: branding, coding rules, security review, framework gotchas. The decisions you already made, encoded.' },
+  { key: 'np-env',  label: 'env',  title: 'Environment', desc: 'Machine setup: toolchain, editor + plugin stacks, secrets refresh. A fresh box bootstraps to a known-good state.' },
+  { key: 'np-flow', label: 'flow', title: 'Workflows', desc: 'Recurring agent procedures — review, merge-gate, handoff — run the same disciplined way every time.' },
+];
+
+const layers = [
+  { name: 'skills',    note: 'human-reviewed behavior — how to act' },
+  { name: 'sources',   note: 'curated, version-pinned reference' },
+  { name: 'wiki',      note: 'LLM-owned synthesis across the above' },
+  { name: 'playbooks', note: 'failure→recovery, enforced at the tool call' },
+  { name: 'episodic',  note: 'working narrative — lowest authority' },
+];
+---
+<BaseLayout>
+  <header class="site-head">
+    <div class="container head-inner">
+      <a class="brand" href="/" aria-label="nervepack home">
+        <Emblem size={34} animate={false} />
+        <span class="brand-name">nervepack</span>
+      </a>
+      <nav class="head-nav">
+        <a href="/docs/">Docs</a>
+        <a href={REPO} class="btn btn-ghost btn-sm">GitHub ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Open source · Apache-2.0</p>
+        <h1>A modpack for<br /><span class="accent-ai">AI</span> cognition.</h1>
+        <p class="lead">
+          Skills, memory, tools, and workflows in one harness — a context hub you run
+          across your machines, so a fresh box and a year-old box behave like the same
+          collaborator.
+        </p>
+        <div class="cta">
+          <a href="#get-started" class="btn btn-primary">Get started</a>
+          <a href={REPO} class="btn btn-ghost">View on GitHub ↗</a>
+        </div>
+        <p class="hero-sub">Works with Claude Code — and any agentic host that can read files and run shell.</p>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <Emblem size={320} animate={true} />
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT IT IS -->
+  <section class="section">
+    <div class="container narrow">
+      <p class="eyebrow">What it is</p>
+      <h2>One source of truth for what your AI should know.</h2>
+      <p class="big">
+        nervepack is the source of truth for the skills, rules, and dev-environment
+        setup an AI coding assistant should carry with it. It loads into each session
+        as skills and wires into the session lifecycle, so the decisions you've already
+        made get reused instead of re-derived.
+      </p>
+      <ul class="props">
+        <li><strong>Cross-machine.</strong> Clone it on a new box and it bootstraps to the same collaborator.</li>
+        <li><strong>Model-agnostic.</strong> A tool-neutral seam; not tied to one host or model.</li>
+        <li><strong>Engine + content.</strong> A publishable engine, your private content layered on top — PII stays out of the open repo.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- TIERS -->
+  <section class="section tiers-section">
+    <div class="container">
+      <p class="eyebrow">The pack</p>
+      <h2>Four tiers, one namespace.</h2>
+      <div class="tiers">
+        {tiers.map((t) => (
+          <article class="tier">
+            <span class="tier-tag">{t.key}</span>
+            <h3>{t.title}</h3>
+            <p>{t.desc}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS — dark band, gold-on-dark -->
+  <section class="band">
+    <div class="container band-grid">
+      <div class="band-copy">
+        <p class="eyebrow on-ink">How it works</p>
+        <h2>Injected at session start. Distilled over time.</h2>
+        <p class="band-lead">
+          A hook injects nervepack's directive into every session; more hooks and a few
+          crons capture what worked and what didn't, then distil it back into durable
+          skills. Knowledge is layered by authority — higher layers always win.
+        </p>
+      </div>
+      <ol class="layers" aria-label="Knowledge layers, highest authority first">
+        {layers.map((l, i) => (
+          <li>
+            <span class="layer-rank">{i + 1}</span>
+            <span class="layer-name">{l.name}</span>
+            <span class="layer-note">{l.note}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- GET STARTED -->
+  <section class="section" id="get-started">
+    <div class="container narrow">
+      <p class="eyebrow">Get started</p>
+      <h2>Clone it. It bootstraps.</h2>
+      <p>Pull the engine, then run the onboard for your host. Full steps in the docs.</p>
+      <pre class="code"><code>git clone {REPO} ~/Code/nervepack
+cd ~/Code/nervepack && ./engine/setup/onboard.sh</code></pre>
+      <div class="cta">
+        <a href="/docs/getting-started/" class="btn btn-primary">Getting started</a>
+        <a href={REPO} class="btn btn-ghost">Read the README ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-foot">
+    <div class="container foot-inner">
+      <div class="foot-brand">
+        <Emblem size={28} animate={false} />
+        <span>nervepack</span>
+      </div>
+      <nav class="foot-links">
+        <a href={REPO}>GitHub</a>
+        <a href="/docs/">Docs</a>
+        <a href={`${REPO}/blob/main/LICENSE`}>Apache-2.0</a>
+      </nav>
+      <p class="foot-tag">A modpack for AI cognition.</p>
+    </div>
+  </footer>
+</BaseLayout>
+
+<style>
+  /* ---- header ---- */
+  .site-head { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border-soft); }
+  .head-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .brand { display: inline-flex; align-items: center; gap: 0.55rem; color: var(--text); }
+  .brand:hover { text-decoration: none; }
+  .brand-name { font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; }
+  .head-nav { display: flex; align-items: center; gap: 1.3rem; }
+  .head-nav > a:not(.btn) { color: var(--text-secondary); font-weight: 600; font-size: 0.95rem; }
+  .head-nav > a:not(.btn):hover { color: var(--text); text-decoration: none; }
+  .btn-sm { padding: 0.42em 0.85em; font-size: 0.9rem; }
+
+  /* ---- hero ---- */
+  .hero { padding-block: clamp(48px, 8vw, 92px); overflow: hidden; }
+  .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(24px, 5vw, 64px); align-items: center; }
+  .hero-copy h1 { margin-top: 0.2em; }
+  .accent-ai { color: var(--np-amber); }
+  .lead { font-size: clamp(1.05rem, 1.8vw, 1.3rem); color: var(--text-secondary); max-width: 46ch; }
+  .cta { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.6rem 0 1rem; }
+  .hero-sub { font-size: 0.95rem; color: var(--text-tertiary); margin: 0; }
+  .hero-art { display: flex; justify-content: center; color: var(--np-structural); }
+  .hero-art :global(svg) { width: 100%; max-width: 340px; height: auto; filter: drop-shadow(0 12px 30px rgba(20,36,53,0.12)); }
+
+  /* ---- generic sections ---- */
+  .narrow { max-width: 760px; }
+  .big { font-size: clamp(1.05rem, 1.7vw, 1.25rem); color: var(--text-secondary); }
+  .props { list-style: none; padding: 0; margin: 1.8rem 0 0; display: grid; gap: 0.9rem; }
+  .props li { padding-left: 1.2rem; position: relative; color: var(--text-secondary); max-width: 64ch; }
+  .props li::before { content: ''; position: absolute; left: 0; top: 0.62em; width: 7px; height: 7px; border-radius: 50%; background: var(--np-amber); }
+  .props strong { color: var(--text); font-weight: 700; }
+
+  /* ---- tiers ---- */
+  .tiers-section { background: var(--surface-alt); }
+  .tiers { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 1.8rem; }
+  .tier { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem 1.4rem; box-shadow: var(--shadow-sm); }
+  .tier-tag { display: inline-block; font-family: var(--font-mono); font-size: 0.78rem; font-weight: 500; color: var(--np-amber-deep); background: #f7efe0; border: 1px solid #efe2cb; padding: 0.15em 0.55em; border-radius: 999px; margin-bottom: 0.7rem; }
+  .tier h3 { margin: 0 0 0.35rem; }
+  .tier p { margin: 0; color: var(--text-secondary); font-size: 0.97rem; }
+
+  /* ---- dark band ---- */
+  .band { background: var(--ink); color: var(--on-ink); padding-block: clamp(56px, 9vw, 104px); }
+  .band-grid { display: grid; grid-template-columns: 1fr 0.9fr; gap: clamp(28px, 5vw, 64px); align-items: center; }
+  .band h2 { color: var(--on-ink); }
+  .band .eyebrow.on-ink { color: var(--np-amber); }
+  .band-lead { color: var(--on-ink-muted); max-width: 50ch; }
+  .layers { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; counter-reset: none; }
+  .layers li { display: grid; grid-template-columns: auto auto 1fr; align-items: baseline; gap: 0.7rem 0.9rem; padding: 0.7rem 0.95rem; background: var(--ink-surface); border: 1px solid var(--ink-border); border-radius: var(--radius-md); }
+  .layer-rank { font-family: var(--font-mono); font-size: 0.8rem; color: var(--np-amber); }
+  .layer-name { font-family: var(--font-display); font-weight: 700; color: var(--on-ink); }
+  .layer-note { color: var(--on-ink-muted); font-size: 0.9rem; }
+
+  /* ---- code / get started ---- */
+  .code { background: var(--ink); color: var(--on-ink); border-radius: var(--radius-md); padding: 1.1rem 1.25rem; overflow-x: auto; font-size: 0.92rem; line-height: 1.7; margin: 1.4rem 0; }
+  .code code { color: #cfe0ee; }
+
+  /* ---- footer ---- */
+  .site-foot { border-top: 1px solid var(--border); padding-block: 2.4rem; }
+  .foot-inner { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2rem; }
+  .foot-brand { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--text); font-family: var(--font-display); font-weight: 700; }
+  .foot-links { display: flex; gap: 1.3rem; }
+  .foot-links a { color: var(--text-secondary); font-weight: 600; font-size: 0.95rem; }
+  .foot-tag { margin: 0 0 0 auto; color: var(--text-tertiary); font-size: 0.95rem; }
+
+  /* ---- responsive ---- */
+  @media (max-width: 760px) {
+    .hero-grid, .band-grid { grid-template-columns: 1fr; }
+    .hero-art { order: -1; }
+    .hero-art :global(svg) { max-width: 220px; }
+    .tiers { grid-template-columns: 1fr; }
+    .foot-tag { margin-left: 0; width: 100%; }
+  }
+</style>

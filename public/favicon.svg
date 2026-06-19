@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="nervepack">
+  <title>nervepack favicon</title>
+  <!-- Simplified mark for tiny sizes: ring + spine + 3 amber module nodes. No side branches.
+       Structural = currentColor, auto-adapting to the browser's light/dark tab. -->
+  <style>
+    :root { color: #16293a; }
+    @media (prefers-color-scheme: dark) { :root { color: #eef2f6; } }
+  </style>
+  <defs>
+    <radialGradient id="fnode" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffd56b"/><stop offset="60%" stop-color="#f2a91b"/><stop offset="100%" stop-color="#e09405"/>
+    </radialGradient>
+  </defs>
+  <circle cx="32" cy="32" r="27" fill="none" stroke="currentColor" stroke-width="4.5"/>
+  <line x1="32" y1="8" x2="32" y2="56" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+  <g fill="currentColor">
+    <rect x="22" y="13" width="20" height="11" rx="4"/>
+    <rect x="22" y="27" width="20" height="11" rx="4"/>
+    <rect x="22" y="41" width="20" height="11" rx="4"/>
+  </g>
+  <g fill="url(#fnode)">
+    <circle cx="32" cy="18.5" r="3.4"/>
+    <circle cx="32" cy="32.5" r="3.4"/>
+    <circle cx="32" cy="46.5" r="3.4"/>
+  </g>
+  <g fill="url(#fnode)" stroke="currentColor" stroke-width="1.6">
+    <circle cx="32" cy="8" r="3.6"/>
+    <circle cx="32" cy="56" r="3.6"/>
+  </g>
+</svg>
