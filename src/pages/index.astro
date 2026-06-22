@@ -121,9 +121,11 @@ const layers = [
     <div class="container narrow">
       <p class="eyebrow">Get started</p>
       <h2>Clone it. It bootstraps.</h2>
-      <p>Pull the engine, then run the onboard for your host. Full steps in the docs.</p>
+      <p>Pull the engine, then open your agent in the repo and onboard it to your host. Full steps in the docs.</p>
       <pre class="code"><code>git clone {REPO} ~/Code/nervepack
-cd ~/Code/nervepack && ./engine/setup/onboard.sh</code></pre>
+cd ~/Code/nervepack
+# open your agent here, then run: /np-onboard   (or say "onboard nervepack")
+# check it any time: engine/setup/np-doctor.sh</code></pre>
       <div class="cta">
         <a href="/docs/getting-started/" class="btn btn-primary">Getting started</a>
         <a href={REPO} class="btn btn-ghost">Read the README ↗</a>
