@@ -5,18 +5,18 @@ import Emblem from '../components/Emblem.astro';
 const REPO = 'https://github.com/pat-browne/nervepack';
 
 const tiers = [
-  { key: 'np-core', label: 'core', title: 'Cognition machinery', desc: 'Capture, recall, sync, contribute, toggle — the engine that carries context between sessions and machines.' },
-  { key: 'np-kb',   label: 'kb',   title: 'Knowledge base', desc: 'Domain how-to: branding, coding rules, security review, framework gotchas. The decisions you already made, encoded.' },
-  { key: 'np-env',  label: 'env',  title: 'Environment', desc: 'Machine setup: toolchain, editor + plugin stacks, secrets refresh. A fresh box bootstraps to a known-good state.' },
-  { key: 'np-flow', label: 'flow', title: 'Workflows', desc: 'Recurring agent procedures — review, merge-gate, handoff — run the same disciplined way every time.' },
+  { key: 'np-core', label: 'core', title: 'Cognition machinery', desc: 'Capture, recall, sync, contribute, toggle. The engine that carries context between sessions and machines.' },
+  { key: 'np-kb',   label: 'kb',   title: 'Knowledge base', desc: 'Domain how-to. Branding, coding rules, security review, framework gotchas. The decisions you already made, encoded.' },
+  { key: 'np-env',  label: 'env',  title: 'Environment', desc: 'Machine setup. Toolchain, editor and plugin stacks, secrets refresh. A fresh box bootstraps to a known-good state.' },
+  { key: 'np-flow', label: 'flow', title: 'Workflows', desc: 'Recurring agent procedures (review, merge-gate, handoff) run the same disciplined way every time.' },
 ];
 
 const layers = [
-  { name: 'skills',    note: 'human-reviewed behavior — how to act' },
+  { name: 'skills',    note: 'human-reviewed behavior, how to act' },
   { name: 'sources',   note: 'curated, version-pinned reference' },
   { name: 'wiki',      note: 'LLM-owned synthesis across the above' },
   { name: 'playbooks', note: 'failure→recovery, enforced at the tool call' },
-  { name: 'episodic',  note: 'working narrative — lowest authority' },
+  { name: 'episodic',  note: 'working narrative, lowest authority' },
 ];
 ---
 <BaseLayout>
@@ -40,7 +40,7 @@ const layers = [
         <p class="eyebrow">Open source · Apache-2.0</p>
         <h1>A modpack for<br /><span class="accent-ai">AI</span> cognition.</h1>
         <p class="lead">
-          Skills, memory, tools, and workflows in one harness — a context hub you run
+          Skills, memory, tools, and workflows in one harness. A context hub you run
           across your machines, so a fresh box and a year-old box behave like the same
           collaborator.
         </p>
@@ -48,7 +48,7 @@ const layers = [
           <a href="#get-started" class="btn btn-primary">Get started</a>
           <a href={REPO} class="btn btn-ghost">View on GitHub ↗</a>
         </div>
-        <p class="hero-sub">Works with Claude Code — and any agentic host that can read files and run shell.</p>
+        <p class="hero-sub">Works with Claude Code, and any agentic host that can read files and run shell.</p>
       </div>
       <div class="hero-art" aria-hidden="true">
         <Emblem size={320} animate={true} />
@@ -70,7 +70,7 @@ const layers = [
       <ul class="props">
         <li><strong>Cross-machine.</strong> Clone it on a new box and it bootstraps to the same collaborator.</li>
         <li><strong>Model-agnostic.</strong> A tool-neutral seam; not tied to one host or model.</li>
-        <li><strong>Engine + content.</strong> A publishable engine, your private content layered on top — PII stays out of the open repo.</li>
+        <li><strong>Engine + content.</strong> A publishable engine with your private content layered on top, so PII stays out of the open repo.</li>
       </ul>
     </div>
   </section>
@@ -101,7 +101,7 @@ const layers = [
         <p class="band-lead">
           A hook injects nervepack's directive into every session; more hooks and a few
           crons capture what worked and what didn't, then distil it back into durable
-          skills. Knowledge is layered by authority — higher layers always win.
+          skills. Knowledge is layered by authority. Higher layers always win.
         </p>
       </div>
       <ol class="layers" aria-label="Knowledge layers, highest authority first">
