@@ -11,8 +11,8 @@ import '../styles/global.css';
 
 interface Props { title?: string; description?: string; }
 const {
-  title = 'nervepack — A modpack for AI cognition',
-  description = 'A modpack for AI cognition. Skills, memory, tools, and workflows in one harness — a context hub you run across machines so a fresh box and a year-old box behave like the same collaborator.',
+  title = 'nervepack · A modpack for AI cognition',
+  description = 'A modpack for AI cognition. Skills, memory, tools, and workflows in one harness. A context hub you run across machines so a fresh box and a year-old box behave like the same collaborator.',
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL('/og.png', Astro.site);
