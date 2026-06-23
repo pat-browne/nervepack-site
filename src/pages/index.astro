@@ -116,6 +116,42 @@ const layers = [
     </div>
   </section>
 
+  <!-- SEE IT -->
+  <section class="section see-it" id="see-it">
+    <div class="container">
+      <p class="eyebrow">See it</p>
+      <h2>Watch how it fits together, then poke at it live.</h2>
+      <div class="see-grid">
+        <figure class="video-wrap">
+          <video
+            controls
+            preload="none"
+            playsinline
+            poster="/example/architecture-poster.svg"
+            aria-label="Nervepack — The Architecture of AI Memory"
+          >
+            <source src="/example/nervepack-architecture.mp4" type="video/mp4" />
+            Your browser can’t play this video.
+            <a href="/example/nervepack-architecture.mp4">Download it instead.</a>
+          </video>
+          <figcaption>A short tour of the layers and how they compound over time.</figcaption>
+        </figure>
+        <div class="see-copy">
+          <h3>The performance dashboard</h3>
+          <p>
+            Every session is scored on how much nervepack actually helped, then rendered
+            here. This is the real dashboard running on a small sample dataset — open it
+            and click around.
+          </p>
+          <div class="cta">
+            <a href="/example/dashboard/" class="btn btn-primary">Open the live example ↗</a>
+          </div>
+          <p class="see-note">Interactive demo with synthetic sample data — no real session data.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- GET STARTED -->
   <section class="section" id="get-started">
     <div class="container narrow">
@@ -188,6 +224,16 @@ cd ~/Code/nervepack
   .tier h3 { margin: 0 0 0.35rem; }
   .tier p { margin: 0; color: var(--text-secondary); font-size: 0.97rem; }
 
+  /* ---- see it / video + dashboard ---- */
+  .see-it { background: var(--surface-alt); }
+  .see-grid { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: clamp(24px, 4vw, 48px); align-items: center; margin-top: 1.8rem; }
+  .video-wrap { margin: 0; }
+  .video-wrap video { width: 100%; height: auto; display: block; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--ink); box-shadow: var(--shadow-sm); }
+  .video-wrap figcaption { margin-top: 0.7rem; color: var(--text-tertiary); font-size: 0.92rem; }
+  .see-copy h3 { margin: 0 0 0.5rem; }
+  .see-copy p { color: var(--text-secondary); margin: 0 0 1.2rem; }
+  .see-note { font-size: 0.88rem; color: var(--text-tertiary); margin: 1rem 0 0; }
+
   /* ---- dark band ---- */
   .band { background: var(--ink); color: var(--on-ink); padding-block: clamp(56px, 9vw, 104px); }
   .band-grid { display: grid; grid-template-columns: 1fr 0.9fr; gap: clamp(28px, 5vw, 64px); align-items: center; }
@@ -214,7 +260,7 @@ cd ~/Code/nervepack
 
   /* ---- responsive ---- */
   @media (max-width: 760px) {
-    .hero-grid, .band-grid { grid-template-columns: 1fr; }
+    .hero-grid, .band-grid, .see-grid { grid-template-columns: 1fr; }
     .hero-art { order: -1; }
     .hero-art :global(svg) { max-width: 220px; }
     .tiers { grid-template-columns: 1fr; }

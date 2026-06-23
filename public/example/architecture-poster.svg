@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Nervepack — The Architecture of AI Memory">
+  <defs>
+    <radialGradient id="node" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffd56b"/>
+      <stop offset="55%" stop-color="#f2a91b"/>
+      <stop offset="100%" stop-color="#e09405"/>
+    </radialGradient>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1c3046"/>
+      <stop offset="100%" stop-color="#142435"/>
+    </linearGradient>
+    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1280" height="720" fill="url(#bg)"/>
+
+  <!-- emblem, left -->
+  <g transform="translate(150 210) scale(1.5)" opacity="0.96">
+    <g fill="none" stroke="#cdd9e4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="100" cy="100" r="86" stroke-width="5"/>
+      <line x1="100" y1="14" x2="100" y2="186" stroke-width="4"/>
+      <line x1="72" y1="56" x2="62" y2="56"/>
+      <line x1="122" y1="56" x2="138" y2="56"/><line x1="138" y1="56" x2="150" y2="47"/><line x1="138" y1="56" x2="150" y2="65"/>
+      <line x1="72" y1="90" x2="62" y2="90"/>
+      <line x1="140" y1="90" x2="150" y2="81"/><line x1="140" y1="90" x2="150" y2="99"/>
+      <line x1="78" y1="124" x2="62" y2="124"/><line x1="62" y1="124" x2="50" y2="115"/><line x1="62" y1="124" x2="50" y2="133"/>
+      <line x1="122" y1="124" x2="138" y2="124"/><line x1="138" y1="124" x2="150" y2="115"/><line x1="138" y1="124" x2="150" y2="133"/>
+      <line x1="78" y1="158" x2="58" y2="158"/>
+    </g>
+    <g fill="#cdd9e4">
+      <rect x="78" y="43" width="44" height="26" rx="9"/>
+      <rect x="78" y="77" width="44" height="26" rx="9"/>
+      <rect x="78" y="111" width="44" height="26" rx="9"/>
+      <rect x="78" y="145" width="44" height="26" rx="9"/>
+    </g>
+    <g filter="url(#glow)" fill="url(#node)">
+      <circle cx="100" cy="56" r="5"/><circle cx="100" cy="90" r="5"/>
+      <circle cx="100" cy="124" r="5"/><circle cx="100" cy="158" r="5"/>
+      <circle cx="100" cy="14" r="5.5"/><circle cx="100" cy="186" r="5.5"/>
+    </g>
+  </g>
+
+  <!-- title block, right -->
+  <g font-family="'Baloo 2', system-ui, -apple-system, sans-serif">
+    <text x="560" y="262" fill="#f2a91b" font-size="22" font-weight="700" letter-spacing="3" font-family="'JetBrains Mono', ui-monospace, monospace">NERVEPACK</text>
+    <text x="558" y="350" fill="#eef2f6" font-size="68" font-weight="800">The Architecture</text>
+    <text x="558" y="426" fill="#eef2f6" font-size="68" font-weight="800">of AI Memory</text>
+    <text x="560" y="486" fill="#9fb0c0" font-size="26" font-weight="500">How skills, memory, and workflows compound over time.</text>
+  </g>
+
+  <!-- play affordance -->
+  <g transform="translate(560 560)">
+    <circle cx="36" cy="36" r="36" fill="#f2a91b"/>
+    <path d="M28 20 L56 36 L28 52 Z" fill="#142435"/>
+    <text x="92" y="46" fill="#9fb0c0" font-size="22" font-weight="600" font-family="'JetBrains Mono', ui-monospace, monospace">Watch the video</text>
+  </g>
+</svg>
